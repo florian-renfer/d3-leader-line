@@ -19,6 +19,9 @@ declare let LeaderLine: any;
   styleUrl: './canvas.component.css',
 })
 export class CanvasComponent implements AfterViewInit {
+  @ViewChild('sidebar', { static: true })
+  private sidebar!: ElementRef<HTMLDivElement>;
+
   @ViewChild('wrapper', { static: true })
   private wrapper!: ElementRef<HTMLDivElement>;
 
@@ -66,6 +69,8 @@ export class CanvasComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.setupD3();
     this.createConnection();
+
+    this.initialMovement();
   }
 
   protected openDialog(): void {
@@ -130,6 +135,8 @@ export class CanvasComponent implements AfterViewInit {
         leaderLineElem,
       );
     }
+
+    this.position();
   }
 
   private position(): void {
@@ -137,10 +144,13 @@ export class CanvasComponent implements AfterViewInit {
       leaderLine.position();
     }
 
+    const sidebarRect = this.sidebar.nativeElement.getBoundingClientRect();
+    const offset: [number, number] = [sidebarRect.width, 0];
+
     // Remove sidebar offset
     d3.select(this.connectionWrapper.nativeElement).style(
       'translate',
-      `${0 * -1}px ${0 * -1}px`,
+      `${offset[0] * -1}px ${offset[1] * -1}px`,
     );
   }
 
@@ -169,8 +179,6 @@ export class CanvasComponent implements AfterViewInit {
 
       const offset: [number, number] = [dragX, dragY];
 
-      console.log(event.x, this.offsetX);
-
       d3.select(this.currentlyDragged).style(
         'translate',
         `${offset[0]}px ${offset[1]}px`,
@@ -178,5 +186,11 @@ export class CanvasComponent implements AfterViewInit {
 
       this.position();
     }
+  }
+
+  private initialMovement(): void {
+    d3.select(this.start.nativeElement).style('translate', '50px 100px');
+    d3.select(this.end.nativeElement).style('translate', '600px 800px');
+    this.position();
   }
 }

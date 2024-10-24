@@ -13,15 +13,17 @@
   </button>
 </div>
 
-<div
-  #wrapper
-  id="wrapper"
-  class="fixed min-w-full h-screen bg-sky-200 overflow-hidden"
->
-  <div #connectionWrapper id="connectionWrapper" class="w-0 h-0 relative"></div>
+<div class="flex w-full h-full">
+  <div id="sidebar" #sidebar class="basis-2/5 h-full shrink-0 bg-emerald-400">
+    Sidebar
+  </div>
 
-  <div #view id="view" class="relative min-w-full h-full">
-    <div #start class="absolute w-24 h-24 bg-indigo-400"></div>
-    <div #end class="absolute w-24 h-24 bg-amber-400"></div>
+  <div #wrapper id="wrapper" class="basis-3/5 bg-sky-200 overflow-hidden">
+    <div #connectionWrapper id="connectionWrapper" class="relative"></div>
+
+    <div #view id="view" class="relative min-w-full h-full">
+      <div #start class="absolute w-24 h-24 bg-indigo-400"></div>
+      <div #end class="absolute w-24 h-24 bg-amber-400"></div>
+    </div>
   </div>
 </div>
