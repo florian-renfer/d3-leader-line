@@ -34,6 +34,9 @@ export class CanvasComponent implements AfterViewInit {
   @ViewChild('end', { static: true })
   private end!: ElementRef<HTMLDivElement>;
 
+  @ViewChild('additional', { static: true })
+  private additional!: ElementRef<HTMLDivElement>;
+
   @ViewChild('connectionWrapper', { static: true })
   private connectionWrapper!: ElementRef<HTMLDivElement>;
 
@@ -84,6 +87,7 @@ export class CanvasComponent implements AfterViewInit {
     // Drag & drop
     d3.select(this.start.nativeElement).call(this.dragBehavior);
     d3.select(this.end.nativeElement).call(this.dragBehavior);
+    d3.select(this.additional.nativeElement).call(this.dragBehavior);
   }
 
   private onZoom({ transform }: d3.D3ZoomEvent<HTMLDivElement, unknown>): void {
